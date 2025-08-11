@@ -1,0 +1,31 @@
+{% load static %}
+<header style="position: relative; width: 100%; height: 350px; background-color: #fff; overflow: hidden;">
+    <!-- صورة الخلفية -->
+    <img src="{% static 'tarwesah.png' %}" 
+         alt="شعار خير النواصي" 
+         style="width: 100%; height: 100%; object-fit: contain; background-color: transparent;">
+
+    <!-- النصوص فوق الصورة -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+                display: flex; flex-direction: column; justify-content: space-between; padding: 20px;">
+        
+        <!-- الصف العلوي: القائمة -->
+        <div style="display: flex; align-items: center; justify-content: center;">
+            <nav>
+                <ul style="list-style: none; display: flex; gap: 20px; margin: 0; padding: 0;">
+                    <li><a href="#" style="color: white; text-decoration: none; font-weight: bold;">الرئيسية</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none; font-weight: bold;">عن المربط</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none; font-weight: bold;">خيلنا</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none; font-weight: bold;">الخدمات</a></li>
+                    <li><a href="#" style="color: white; text-decoration: none; font-weight: bold;">اتصل بنا</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- اسم المربط في الوسط -->
+        <h1 style="text-align: center; font-size: 36px; color: #d4af37; margin: 0; 
+                   text-shadow: 2px 2px 6px rgba(0,0,0,0.8);">
+            خير النواصي
+        </h1>
+    </div>
+</header>
