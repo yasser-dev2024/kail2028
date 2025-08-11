@@ -8,11 +8,20 @@
         body {
             margin: 0;
             font-family: 'Tahoma', sans-serif;
-            background-color: #fdfdfd;
+            background: url('/static/horse-1804425_960_720.jpg') center/cover no-repeat fixed;
+            position: relative;
+        }
+        /* طبقة شفافة مائية */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(4px);
+            z-index: -1;
         }
         /* منطقة البطل */
         .hero {
-            background: url('/static/horse-bg.jpg') center/cover no-repeat;
             height: 80vh;
             display: flex;
             align-items: center;
