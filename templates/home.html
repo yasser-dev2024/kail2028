@@ -10,6 +10,7 @@
             font-family: 'Tahoma', sans-serif;
             background-color: #fdfdfd;
         }
+        /* منطقة البطل */
         .hero {
             background: url('/static/horse-bg.jpg') center/cover no-repeat;
             height: 80vh;
@@ -44,12 +45,73 @@
         .btn:hover {
             background-color: #b8922a;
         }
+        /* الشريط الإخباري والطقس */
+        .info-bar {
+            position: relative;
+            width: 100%;
+            height: 0;
+        }
+        .news-box, .weather-box {
+            position: absolute;
+            top: 20px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            padding: 12px 18px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-size: 14px;
+            color: #333;
+        }
+        .news-box {
+            right: 20px;
+            min-width: 250px;
+        }
+        .weather-box {
+            left: 20px;
+            text-align: center;
+            min-width: 180px;
+        }
+        .news-box strong, .weather-box strong {
+            color: #d4af37;
+        }
+        /* تجاوب مع الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .news-box, .weather-box {
+                position: relative;
+                top: 0;
+                left: 0;
+                right: 0;
+                margin: 10px auto;
+                display: block;
+            }
+            .info-bar {
+                height: auto;
+            }
+        }
     </style>
 </head>
 <body>
 
     <!-- استدعاء الشريط العلوي -->
     {% include 'header.html' %}
+
+    <!-- شريط الأخبار + الطقس -->
+    <div class="info-bar">
+        <!-- الأخبار -->
+        <div class="news-box">
+            <strong>الأخبار:</strong>
+            <marquee behavior="scroll" direction="right" scrollamount="4">
+                إطلاق جدول تدريبات الأسبوع القادم لخيول الفروسية - فتح باب التسجيل في بطولة القفز - وصول حصان جديد من سلالة نادرة
+            </marquee>
+        </div>
+        <!-- الطقس -->
+        <div class="weather-box">
+            <strong>الطقس الآن</strong><br>
+            🌤 26°C<br>
+            رياح: 12 كم/س<br>
+            رطوبة: 45%
+        </div>
+    </div>
 
     <!-- قسم البطل -->
     <section class="hero">
