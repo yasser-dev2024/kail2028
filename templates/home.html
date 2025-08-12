@@ -11,75 +11,31 @@
             background: url('/static/horse-1804425_960_720.jpg') center/cover no-repeat fixed;
             position: relative;
         }
-        /* طبقة شفافة مائية */
         body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(4px);
-            z-index: -1;
+            content: ""; position: fixed; inset: 0; z-index: -1;
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(4px);
         }
-
-        /* شريط الأخبار والطقس كما هو */
-        .info-bar { position: relative; width: 100%; height: 0; }
-        .news-box, .weather-box {
-            position: absolute; top: 20px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
-            padding: 12px 18px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            font-size: 14px; color: #333;
-        }
-        .news-box { right: 20px; min-width: 250px; }
-        .weather-box { left: 20px; text-align: center; min-width: 180px; }
-        .news-box strong, .weather-box strong { color: #d4af37; }
-
-        /* منطقة البطل — أزلنا النص والزر وقللنا الارتفاع */
         .hero { height: 40vh; display: block; }
+        @media (max-width: 768px) { .hero { height: 34vh; } }
 
-        @media (max-width: 768px) {
-            .news-box, .weather-box {
-                position: relative; top: 0; left: 0; right: 0;
-                margin: 10px auto; display: block;
-            }
-            .info-bar { height: auto; }
-            .hero { height: 34vh; }
-        }
-
-        /* ===== بطاقات الخيول (stb-*) ===== */
         :root{
           --stb-card-bg:#fff; --stb-card-b:#e5e7eb; --stb-text:#111827; --stb-muted:#6b7280;
           --stb-shadow:0 6px 24px rgba(0,0,0,.08); --stb-radius:16px;
         }
-        /* رفع القسم للأعلى بشكل واضح */
-        .stb-wrap{
-          max-width:1200px; margin:0 auto; padding:0 16px 56px;
-          position: relative; z-index: 1;
-          margin-top: -160px; /* رفع قوي ليظهر أعلى الصفحة */
-        }
-        @media (min-width:1024px){ .stb-wrap{ margin-top: -200px; } }
-        @media (max-width:640px){ .stb-wrap{ margin-top: -120px; } }
+        .stb-wrap{ max-width:1200px; margin:0 auto; padding:0 16px 56px; position:relative; z-index:1; margin-top:-160px; }
+        @media (min-width:1024px){ .stb-wrap{ margin-top:-200px; } }
+        @media (max-width:640px){ .stb-wrap{ margin-top:-120px; } }
 
-        /* خانة عنوان القسم */
         .stb-panel{
-          background: rgba(255,255,255,0.86);
-          backdrop-filter: blur(8px);
-          border: 1px solid #e5e7eb;
-          border-radius: 18px;
-          box-shadow: 0 8px 24px rgba(0,0,0,.10);
-          padding: 14px 16px;
-          margin-bottom: 12px;
+          background: rgba(255,255,255,0.86); backdrop-filter: blur(8px);
+          border: 1px solid #e5e7eb; border-radius: 18px; box-shadow: 0 8px 24px rgba(0,0,0,.10);
+          padding: 14px 16px; margin-bottom: 12px;
         }
         .stb-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
         .stb-title{ font-size:clamp(20px,2.6vw,28px); color:var(--stb-text); margin:0; font-weight:800; }
         .stb-sub{ font-size:13px; color:var(--stb-muted); margin:0; opacity:.9; }
 
-        .stb-grid{
-          display:grid; gap:12px;
-          grid-template-columns:repeat(2,minmax(0,1fr));
-        }
+        .stb-grid{ display:grid; gap:12px; grid-template-columns:repeat(2,minmax(0,1fr)); }
         @media(min-width:640px){ .stb-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
         @media(min-width:1024px){ .stb-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
 
@@ -90,27 +46,20 @@
         }
         .stb-card:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.10); }
 
-        .stb-media{
-          position:relative; width:100%; aspect-ratio:4/3; background:#f3f4f6; overflow:hidden;
-        }
+        .stb-media{ position:relative; width:100%; aspect-ratio:4/3; background:#f3f4f6; overflow:hidden; }
         .stb-media img{ width:100%; height:100%; object-fit:cover; display:block; }
 
         .stb-badge{
           position:absolute; top:8px; inset-inline-start:8px; background:rgba(17,24,39,.7);
           color:#fff; font-size:12px; padding:4px 8px; border-radius:999px; backdrop-filter:blur(4px);
         }
-
-        /* شارة السعر (﷼) أعلى يمين الصورة */
         .stb-price{
           position:absolute; top:8px; inset-inline-end:8px;
           background:rgba(212,175,55,.92); color:#111; font-weight:800; font-size:12px;
           padding:4px 8px; border-radius:999px; box-shadow:0 4px 12px rgba(0,0,0,.12);
         }
-
-        /* شريط معلومات شفاف أسفل الصورة (الموقع + الجوال) */
         .stb-info{
-          position:absolute; inset-inline:8px; bottom:8px;
-          display:flex; gap:6px; flex-wrap:wrap;
+          position:absolute; inset-inline:8px; bottom:8px; display:flex; gap:6px; flex-wrap:wrap;
         }
         .stb-info .chip{
           background:rgba(255,255,255,.85); backdrop-filter:blur(6px);
@@ -118,125 +67,91 @@
           padding:4px 8px; border-radius:999px; font-size:12px; color:#111;
         }
         @media (max-width:640px){
-          .stb-info{ bottom:6px; }
-          .stb-info .chip{ font-size:11px; padding:3px 6px; }
+          .stb-info{ bottom:6px; } .stb-info .chip{ font-size:11px; padding:3px 6px; }
         }
-
         .stb-body{ padding:10px 12px 12px; }
-        .stb-name{
-          font-weight:700; color:var(--stb-text); font-size:14.5px; margin:0 0 6px;
-          white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-        }
+        .stb-name{ font-weight:700; color:var(--stb-text); font-size:14.5px; margin:0 0 6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
         .stb-meta{ display:flex; gap:6px; flex-wrap:wrap; color:var(--stb-muted); font-size:12px; }
-        .stb-chip{
-          background:#f9fafb; border:1px solid #eef2f7; padding:4px 8px; border-radius:999px;
-          white-space:nowrap; max-width:100%; overflow:hidden; text-overflow:ellipsis;
+        .stb-chip{ background:#f9fafb; border:1px solid #eef2f7; padding:4px 8px; border-radius:999px; white-space:nowrap; max-width:100%; overflow:hidden; text-overflow:ellipsis; }
+
+        /* شريط الأخبار المائي */
+        .full-news-bar{
+          width:100%; background:rgba(255,255,255,0.15); backdrop-filter:blur(6px);
+          padding:10px 0; position:relative; z-index:5; color:#fff;
+          border-top:1px solid rgba(255,255,255,0.3); border-bottom:1px solid rgba(255,255,255,0.3);
         }
-        .stb-empty{
-          text-align:center; color:var(--stb-muted); padding:32px 12px; border:1px dashed #e5e7eb; border-radius:var(--stb-radius);
-          background:rgba(255,255,255,.6);
-        }
+        .full-news-bar marquee{ font-weight:700; color:#fff; text-shadow:1px 1px 3px rgba(0,0,0,.5); }
     </style>
 </head>
 <body>
 
     {% include 'header.html' %}
 
-<!-- شريط الأخبار بكامل العرض -->
-<div class="full-news-bar">
-    <marquee behavior="scroll" direction="right" scrollamount="5">
-        إطلاق جدول تدريبات الأسبوع القادم لخيول الفروسية - فتح باب التسجيل في بطولة القفز - وصول حصان جديد من سلالة نادرة
-    </marquee>
-</div>
+    <!-- شريط الأخبار من الأدمن (يظهر فقط إذا وُجد نص مفعّل) -->
+    {% if ticker and ticker.text %}
+    <div class="full-news-bar">
+        <marquee behavior="scroll" direction="right" scrollamount="5">
+            {{ ticker.text }}
+        </marquee>
+    </div>
+    {% endif %}
 
-<style>
-.full-news-bar {
-    width: 100%;
-    background: rgba(255,255,255,0.15); /* شفافية عالية */
-    backdrop-filter: blur(6px); /* تأثير مائي */
-    padding: 10px 0;
-    position: relative;
-    top: 0;
-    z-index: 5;
-    font-size: 15px;
-    color: #fff; /* النص أبيض ليتباين */
-    border-top: 1px solid rgba(255,255,255,0.3);
-    border-bottom: 1px solid rgba(255,255,255,0.3);
-}
-.full-news-bar marquee {
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* تظليل للنص */
-}
-</style>
-
-    <!-- بانر صامت بدون نص -->
+    <!-- بانر صامت -->
     <section class="hero"></section>
 
     <!-- خيل للبيع -->
     <section class="stb-wrap" aria-labelledby="horses-title">
         <div class="stb-panel">
             <header class="stb-head">
-                <h3 id="horses-title" class="stb-title">أخبار وعروض الاستطبل</h3>
+                <h3 id="horses-title" class="stb-title">خيل للبيع</h3>
                 <p class="stb-sub">بطاقات أنيقة — تُحدَّث تلقائيًا عند إضافة أي حصان.</p>
             </header>
         </div>
 
         {% if horses %}
-          <div class="stb-grid">
+        <div class="stb-grid">
             {% for horse in horses %}
-              <article class="stb-card" aria-label="{{ horse.name|default:'حصان' }}">
+            <article class="stb-card" aria-label="{{ horse.name|default:'حصان' }}">
                 <div class="stb-media">
-                  {% if horse.photo %}
-                    <img loading="lazy" src="{{ horse.photo.url }}" alt="صورة {{ horse.name|default:'حصان' }}">
-                  {% else %}
-                    <img loading="lazy" src="data:image/svg+xml;utf8,
-                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'>
-                      <rect width='400' height='300' fill='%23f3f4f6'/>
-                      <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-size='18'>
-                        لا توجد صورة
-                      </text>
-                    </svg>" alt="لا توجد صورة">
-                  {% endif %}
+                    {% if horse.photo %}
+                      <img loading="lazy" src="{{ horse.photo.url }}" alt="صورة {{ horse.name|default:'حصان' }}">
+                    {% else %}
+                      <img loading="lazy" src="data:image/svg+xml;utf8,
+                      <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'>
+                        <rect width='400' height='300' fill='%23f3f4f6'/>
+                        <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-size='18'>
+                          لا توجد صورة
+                        </text>
+                      </svg>" alt="لا توجد صورة">
+                    {% endif %}
 
-                  {% if horse.breed %}
-                    <span class="stb-badge">{{ horse.breed }}</span>
-                  {% endif %}
+                    {% if horse.breed %}<span class="stb-badge">{{ horse.breed }}</span>{% endif %}
+                    {% if horse.price %}<span class="stb-price">﷼ {{ horse.price|floatformat:0 }}</span>
+                    {% else %}<span class="stb-price">سعر عند الطلب</span>{% endif %}
 
-                  {% if horse.price %}
-                    <span class="stb-price">﷼ {{ horse.price|floatformat:0 }}</span>
-                  {% else %}
-                    <span class="stb-price">سعر عند الطلب</span>
-                  {% endif %}
-
-                  <div class="stb-info">
-                    {% if horse.location %}<span class="chip">📍 {{ horse.location }}</span>{% endif %}
-                    {% if horse.contact_phone %}<span class="chip">📞 {{ horse.contact_phone }}</span>{% endif %}
-                  </div>
+                    <div class="stb-info">
+                        {% if horse.location %}<span class="chip">📍 {{ horse.location }}</span>{% endif %}
+                        {% if horse.contact_phone %}<span class="chip">📞 {{ horse.contact_phone }}</span>{% endif %}
+                    </div>
                 </div>
 
                 <div class="stb-body">
-                  <h4 class="stb-name" title="{{ horse.name }}">{{ horse.name }}</h4>
-                  <div class="stb-meta">
-                    {% if horse.color %}
-                      <span class="stb-chip">اللون: {{ horse.color }}</span>
-                    {% endif %}
-                    {% if horse.birth_date %}
-                      <span class="stb-chip">الميلاد: {{ horse.birth_date|date:"d-m-Y" }}</span>
-                    {% endif %}
-                  </div>
-
-                  {% if horse.specs %}
-                    <div class="stb-meta" style="margin-top:6px;">
-                      <span class="stb-chip" title="{{ horse.specs }}">{{ horse.specs|truncatechars:60 }}</span>
+                    <h4 class="stb-name" title="{{ horse.name }}">{{ horse.name }}</h4>
+                    <div class="stb-meta">
+                        {% if horse.color %}<span class="stb-chip">اللون: {{ horse.color }}</span>{% endif %}
+                        {% if horse.birth_date %}<span class="stb-chip">الميلاد: {{ horse.birth_date|date:"d-m-Y" }}</span>{% endif %}
                     </div>
-                  {% endif %}
+                    {% if horse.specs %}
+                    <div class="stb-meta" style="margin-top:6px;">
+                        <span class="stb-chip" title="{{ horse.specs }}">{{ horse.specs|truncatechars:60 }}</span>
+                    </div>
+                    {% endif %}
                 </div>
-              </article>
+            </article>
             {% endfor %}
-          </div>
+        </div>
         {% else %}
-          <div class="stb-empty">لا توجد خيل للبيع حاليًا.</div>
+          <div class="stb-panel">لا توجد خيل للبيع حاليًا.</div>
         {% endif %}
     </section>
 

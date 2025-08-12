@@ -4,11 +4,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import render
 
-from stables.models import Horse
+from stables.models import Horse, NewsTicker
 
 def home_view(request):
     horses = Horse.objects.order_by('-id')
-    return render(request, 'home.html', {'horses': horses})
+    ticker = NewsTicker.objects.filter(is_active=True).order_by('-updated_at').first()
+    return render(request, 'home.html', {'horses': horses, 'ticker': ticker})
 
 urlpatterns = [
     path('', home_view, name='home'),

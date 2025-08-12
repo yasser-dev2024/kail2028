@@ -7,7 +7,6 @@ class Horse(models.Model):
     color = models.CharField('اللون', max_length=50, blank=True, null=True)
     photo = models.ImageField('الصورة', upload_to='horses/photos/', blank=True, null=True)
 
-    # الحقول الجديدة
     contact_phone = models.CharField('رقم التواصل', max_length=30, blank=True, null=True)
     price = models.DecimalField('السعر (ريال)', max_digits=10, decimal_places=2, blank=True, null=True)
     specs = models.TextField('المواصفات', blank=True, null=True)
@@ -19,3 +18,17 @@ class Horse(models.Model):
 
     def __str__(self):
         return self.name
+
+# شريط الأخبار يُدار من لوحة التحكم
+class NewsTicker(models.Model):
+    text = models.TextField('نص الشريط')
+    is_active = models.BooleanField('مفعل', default=True)
+    created_at = models.DateTimeField('تاريخ الإضافة', auto_now_add=True)
+    updated_at = models.DateTimeField('آخر تحديث', auto_now=True)
+
+    class Meta:
+        verbose_name = 'شريط أخبار'
+        verbose_name_plural = 'أشرطة الأخبار'
+
+    def __str__(self):
+        return f"شريط {'مفعل' if self.is_active else 'غير مفعل'} - {self.updated_at:%Y-%m-%d %H:%M}"
