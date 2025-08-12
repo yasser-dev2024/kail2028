@@ -1,21 +1,29 @@
 from django.contrib import admin
-from .models import Horse
 from django.utils.html import format_html
+from .models import Horse
 
 @admin.register(Horse)
 class HorseAdmin(admin.ModelAdmin):
-    list_display = ('name', 'breed', 'birth_date', 'color', 'photo_preview')
-    search_fields = ('name', 'breed', 'color')
-    readonly_fields = ('photo_preview',)
+    list_display = ('name', 'breed', 'color', 'price_sar', 'location', 'contact_phone')
+    search_fields = ('name', 'breed', 'color', 'location', 'contact_phone')
+    list_filter = ('breed', 'color')
 
-    fieldsets = (
-        (None, {
-            'fields': ('name', 'breed', 'birth_date', 'color', 'photo', 'photo_preview')
-        }),
+    fields = (
+        'name', 'breed', 'birth_date', 'color', 'photo',
+        'price', 'contact_phone', 'location', 'specs',
+        'preview',
     )
+    readonly_fields = ('preview',)
 
-    def photo_preview(self, obj):
-        if obj.photo:
-            return format_html('<img src="{}" style="height:60px;border-radius:6px" />', obj.photo.url)
-        return '—'
-    photo_preview.short_description = 'Preview'
+    def price_sar(self, obj):
+        if obj.price is None:
+            return '-'
+        amount = f"{obj.price:,.0f}"
+        return f"﷼ {amount}"
+    price_sar.short_description = "السعر"
+    price_sar.admin_order_field = 'price'
+
+    def preview(self, obj):
+        if obj and obj.photo:
+            return format_html("<img src='{}' style='max-width:240px;border-radius:8px;' />", obj.photo.url)
+        return "—"
