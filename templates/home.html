@@ -20,99 +20,69 @@
             backdrop-filter: blur(4px);
             z-index: -1;
         }
-        /* منطقة البطل */
-        .hero {
-            height: 80vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-shadow: 2px 2px 8px black;
-            flex-direction: column;
-            text-align: center;
-        }
-        .hero h2 {
-            font-size: 48px;
-            margin-bottom: 10px;
-            color: #d4af37;
-        }
-        .hero p {
-            font-size: 20px;
-            max-width: 600px;
-        }
-        .btn {
-            display: inline-block;
-            background-color: #d4af37;
-            color: black;
-            padding: 12px 25px;
-            margin-top: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-        .btn:hover {
-            background-color: #b8922a;
-        }
-        /* الشريط الإخباري والطقس */
-        .info-bar {
-            position: relative;
-            width: 100%;
-            height: 0;
-        }
+
+        /* شريط الأخبار والطقس كما هو */
+        .info-bar { position: relative; width: 100%; height: 0; }
         .news-box, .weather-box {
-            position: absolute;
-            top: 20px;
+            position: absolute; top: 20px;
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px);
             padding: 12px 18px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            font-size: 14px;
-            color: #333;
+            font-size: 14px; color: #333;
         }
-        .news-box {
-            right: 20px;
-            min-width: 250px;
-        }
-        .weather-box {
-            left: 20px;
-            text-align: center;
-            min-width: 180px;
-        }
-        .news-box strong, .weather-box strong {
-            color: #d4af37;
-        }
-        /* تجاوب مع الشاشات الصغيرة */
+        .news-box { right: 20px; min-width: 250px; }
+        .weather-box { left: 20px; text-align: center; min-width: 180px; }
+        .news-box strong, .weather-box strong { color: #d4af37; }
+
+        /* منطقة البطل — أزلنا النص والزر وقللنا الارتفاع */
+        .hero { height: 40vh; display: block; }
+
         @media (max-width: 768px) {
             .news-box, .weather-box {
-                position: relative;
-                top: 0;
-                left: 0;
-                right: 0;
-                margin: 10px auto;
-                display: block;
+                position: relative; top: 0; left: 0; right: 0;
+                margin: 10px auto; display: block;
             }
-            .info-bar {
-                height: auto;
-            }
+            .info-bar { height: auto; }
+            .hero { height: 34vh; }
         }
 
-        /* ===== بطاقات الخيول (معزولة بالأسماء stb-*) ===== */
+        /* ===== بطاقات الخيول (stb-*) ===== */
         :root{
           --stb-card-bg:#fff; --stb-card-b:#e5e7eb; --stb-text:#111827; --stb-muted:#6b7280;
           --stb-shadow:0 6px 24px rgba(0,0,0,.08); --stb-radius:16px;
         }
-        .stb-wrap{ max-width:1200px; margin:0 auto; padding:24px 16px 48px; }
-        .stb-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
-        .stb-title{ font-size:clamp(20px,2.5vw,26px); color:var(--stb-text); margin:0; }
-        .stb-sub{ font-size:13px; color:var(--stb-muted); margin:0; }
+        /* رفع القسم للأعلى بشكل واضح */
+        .stb-wrap{
+          max-width:1200px; margin:0 auto; padding:0 16px 56px;
+          position: relative; z-index: 1;
+          margin-top: -160px; /* رفع قوي ليظهر أعلى الصفحة */
+        }
+        @media (min-width:1024px){ .stb-wrap{ margin-top: -200px; } }
+        @media (max-width:640px){ .stb-wrap{ margin-top: -120px; } }
+
+        /* خانة عنوان القسم */
+        .stb-panel{
+          background: rgba(255,255,255,0.86);
+          backdrop-filter: blur(8px);
+          border: 1px solid #e5e7eb;
+          border-radius: 18px;
+          box-shadow: 0 8px 24px rgba(0,0,0,.10);
+          padding: 14px 16px;
+          margin-bottom: 12px;
+        }
+        .stb-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+        .stb-title{ font-size:clamp(20px,2.6vw,28px); color:var(--stb-text); margin:0; font-weight:800; }
+        .stb-sub{ font-size:13px; color:var(--stb-muted); margin:0; opacity:.9; }
+
         .stb-grid{
           display:grid; gap:12px;
           grid-template-columns:repeat(2,minmax(0,1fr));
         }
         @media(min-width:640px){ .stb-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
         @media(min-width:1024px){ .stb-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+
         .stb-card{
           background:var(--stb-card-bg); border:1px solid var(--stb-card-b);
           border-radius:var(--stb-radius); overflow:hidden; box-shadow:var(--stb-shadow);
@@ -143,40 +113,47 @@
 </head>
 <body>
 
-    <!-- استدعاء الشريط العلوي -->
     {% include 'header.html' %}
 
-    <!-- شريط الأخبار + الطقس -->
-    <div class="info-bar">
-        <!-- الأخبار -->
-        <div class="news-box">
-            <strong>الأخبار:</strong>
-            <marquee behavior="scroll" direction="right" scrollamount="4">
-                إطلاق جدول تدريبات الأسبوع القادم لخيول الفروسية - فتح باب التسجيل في بطولة القفز - وصول حصان جديد من سلالة نادرة
-            </marquee>
-        </div>
-        <!-- الطقس -->
-        <div class="weather-box">
-            <strong>الطقس الآن</strong><br>
-            🌤 26°C<br>
-            رياح: 12 كم/س<br>
-            رطوبة: 45%
-        </div>
-    </div>
+<!-- شريط الأخبار بكامل العرض -->
+<div class="full-news-bar">
+    <marquee behavior="scroll" direction="right" scrollamount="5">
+        إطلاق جدول تدريبات الأسبوع القادم لخيول الفروسية - فتح باب التسجيل في بطولة القفز - وصول حصان جديد من سلالة نادرة
+    </marquee>
+</div>
 
-    <!-- قسم البطل -->
-    <section class="hero">
-        <h2>خير النواصي</h2>
-        <p>مربط للخيل العربية الأصيلة يجمع بين الفخامة، الأصالة، والاحترافية في التدريب والرعاية.</p>
-        <a href="#" class="btn">تعرف أكثر</a>
-    </section>
+<style>
+.full-news-bar {
+    width: 100%;
+    background: rgba(255,255,255,0.15); /* شفافية عالية */
+    backdrop-filter: blur(6px); /* تأثير مائي */
+    padding: 10px 0;
+    position: relative;
+    top: 0;
+    z-index: 5;
+    font-size: 15px;
+    color: #fff; /* النص أبيض ليتباين */
+    border-top: 1px solid rgba(255,255,255,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+.full-news-bar marquee {
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* تظليل للنص */
+}
+</style>
 
-    <!-- ===== بطاقات الخيول (تحتفظ بتصميمك، وتُحدّث تلقائيًا) ===== -->
+    <!-- بانر صامت بدون نص -->
+    <section class="hero"></section>
+
+    <!-- خيل للبيع -->
     <section class="stb-wrap" aria-labelledby="horses-title">
-        <header class="stb-head">
-            <h3 id="horses-title" class="stb-title">الخيول</h3>
-            <p class="stb-sub">تظهر أحدث الإضافات تلقائيًا — بطاقات صغيرة وعصرية.</p>
-        </header>
+        <div class="stb-panel">
+            <header class="stb-head">
+                <h3 id="horses-title" class="stb-title">خيل للبيع</h3>
+                <p class="stb-sub">بطاقات أنيقة — تُحدَّث تلقائيًا عند إضافة أي حصان.</p>
+            </header>
+        </div>
 
         {% if horses %}
           <div class="stb-grid">
@@ -205,7 +182,7 @@
                       <span class="stb-chip">اللون: {{ horse.color }}</span>
                     {% endif %}
                     {% if horse.birth_date %}
-                      <span class="stb-chip">الميلاد: {{ horse.birth_date|date:"Y-m-d" }}</span>
+                      <span class="stb-chip">الميلاد: {{ horse.birth_date|date:"d-m-Y" }}</span>
                     {% endif %}
                   </div>
                 </div>
@@ -213,12 +190,10 @@
             {% endfor %}
           </div>
         {% else %}
-          <div class="stb-empty">لا توجد خيول مضافة حتى الآن.</div>
+          <div class="stb-empty">لا توجد خيل للبيع حاليًا.</div>
         {% endif %}
     </section>
 
-    <!-- استدعاء الشريط السفلي -->
     {% include 'footer.html' %}
-
 </body>
 </html>
