@@ -5,12 +5,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import render
 
-# عرض الصفحة الرئيسية
+from stables.models import Horse  # نمرّر الخيول للصفحة الرئيسية
+
+# الصفحة الرئيسية تستخدم templates/home.html (الموجود أصلًا)
 def home_view(request):
-    return render(request, 'home.html')
+    horses = Horse.objects.order_by('-id')
+    return render(request, 'home.html', {'horses': horses})
 
 urlpatterns = [
-    path('', home_view, name='home'),  # الصفحة الرئيسية
+    path('', home_view, name='home'),
     path('admin/', admin.site.urls),
 
     # تطبيقات محلية
@@ -21,6 +24,6 @@ urlpatterns = [
     path('stables/', include('stables.urls')),
 ]
 
-# لملفات الميديا أثناء التطوير
+# ملفات الميديا أثناء التطوير
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

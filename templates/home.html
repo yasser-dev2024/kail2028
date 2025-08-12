@@ -97,6 +97,48 @@
                 height: auto;
             }
         }
+
+        /* ===== بطاقات الخيول (معزولة بالأسماء stb-*) ===== */
+        :root{
+          --stb-card-bg:#fff; --stb-card-b:#e5e7eb; --stb-text:#111827; --stb-muted:#6b7280;
+          --stb-shadow:0 6px 24px rgba(0,0,0,.08); --stb-radius:16px;
+        }
+        .stb-wrap{ max-width:1200px; margin:0 auto; padding:24px 16px 48px; }
+        .stb-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+        .stb-title{ font-size:clamp(20px,2.5vw,26px); color:var(--stb-text); margin:0; }
+        .stb-sub{ font-size:13px; color:var(--stb-muted); margin:0; }
+        .stb-grid{
+          display:grid; gap:12px;
+          grid-template-columns:repeat(2,minmax(0,1fr));
+        }
+        @media(min-width:640px){ .stb-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+        @media(min-width:1024px){ .stb-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+        .stb-card{
+          background:var(--stb-card-bg); border:1px solid var(--stb-card-b);
+          border-radius:var(--stb-radius); overflow:hidden; box-shadow:var(--stb-shadow);
+          transition:transform .18s ease, box-shadow .18s ease;
+        }
+        .stb-card:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.10); }
+        .stb-media{ position:relative; width:100%; aspect-ratio:4/3; background:#f3f4f6; overflow:hidden; }
+        .stb-media img{ width:100%; height:100%; object-fit:cover; display:block; }
+        .stb-badge{
+          position:absolute; top:8px; inset-inline-start:8px; background:rgba(17,24,39,.7);
+          color:#fff; font-size:12px; padding:4px 8px; border-radius:999px; backdrop-filter:blur(4px);
+        }
+        .stb-body{ padding:10px 12px 12px; }
+        .stb-name{
+          font-weight:700; color:var(--stb-text); font-size:14.5px; margin:0 0 6px;
+          white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+        }
+        .stb-meta{ display:flex; gap:6px; flex-wrap:wrap; color:var(--stb-muted); font-size:12px; }
+        .stb-chip{
+          background:#f9fafb; border:1px solid #eef2f7; padding:4px 8px; border-radius:999px;
+          white-space:nowrap; max-width:100%; overflow:hidden; text-overflow:ellipsis;
+        }
+        .stb-empty{
+          text-align:center; color:var(--stb-muted); padding:32px 12px; border:1px dashed #e5e7eb; border-radius:var(--stb-radius);
+          background:rgba(255,255,255,.6);
+        }
     </style>
 </head>
 <body>
@@ -127,6 +169,52 @@
         <h2>خير النواصي</h2>
         <p>مربط للخيل العربية الأصيلة يجمع بين الفخامة، الأصالة، والاحترافية في التدريب والرعاية.</p>
         <a href="#" class="btn">تعرف أكثر</a>
+    </section>
+
+    <!-- ===== بطاقات الخيول (تحتفظ بتصميمك، وتُحدّث تلقائيًا) ===== -->
+    <section class="stb-wrap" aria-labelledby="horses-title">
+        <header class="stb-head">
+            <h3 id="horses-title" class="stb-title">الخيول</h3>
+            <p class="stb-sub">تظهر أحدث الإضافات تلقائيًا — بطاقات صغيرة وعصرية.</p>
+        </header>
+
+        {% if horses %}
+          <div class="stb-grid">
+            {% for horse in horses %}
+              <article class="stb-card" aria-label="{{ horse.name|default:'حصان' }}">
+                <div class="stb-media">
+                  {% if horse.photo %}
+                    <img loading="lazy" src="{{ horse.photo.url }}" alt="صورة {{ horse.name|default:'حصان' }}">
+                  {% else %}
+                    <img loading="lazy" src="data:image/svg+xml;utf8,
+                    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'>
+                      <rect width='400' height='300' fill='%23f3f4f6'/>
+                      <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-size='18'>
+                        لا توجد صورة
+                      </text>
+                    </svg>" alt="لا توجد صورة">
+                  {% endif %}
+                  {% if horse.breed %}
+                    <span class="stb-badge">{{ horse.breed }}</span>
+                  {% endif %}
+                </div>
+                <div class="stb-body">
+                  <h4 class="stb-name" title="{{ horse.name }}">{{ horse.name }}</h4>
+                  <div class="stb-meta">
+                    {% if horse.color %}
+                      <span class="stb-chip">اللون: {{ horse.color }}</span>
+                    {% endif %}
+                    {% if horse.birth_date %}
+                      <span class="stb-chip">الميلاد: {{ horse.birth_date|date:"Y-m-d" }}</span>
+                    {% endif %}
+                  </div>
+                </div>
+              </article>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="stb-empty">لا توجد خيول مضافة حتى الآن.</div>
+        {% endif %}
     </section>
 
     <!-- استدعاء الشريط السفلي -->
