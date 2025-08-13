@@ -6,47 +6,54 @@
     <title>خير النواصي للخيل العربية الأصيلة</title>
     <style>
         /* خلفية الصفحة */
-        body {
-            margin: 0;
-            font-family: 'Tahoma', sans-serif;
-            background: url('/static/horse-1804425_960_720.jpg') center/cover no-repeat fixed;
-            position: relative;
+        body{
+          margin:0; font-family:'Tahoma',sans-serif;
+          background:url('/static/horse-1804425_960_720.jpg') center/cover no-repeat fixed;
+          position:relative;
         }
-        body::before {
-            content: ""; position: fixed; inset: 0; z-index: -1;
-            background: rgba(255,255,255,0.15); backdrop-filter: blur(4px);
+        body::before{ content:""; position:fixed; inset:0; z-index:-1;
+          background:rgba(255,255,255,.15); backdrop-filter:blur(4px);
         }
 
-        /* مساحة البانر */
-        .hero { height: 40vh; display: block; }
-        @media (max-width: 768px) { .hero { height: 34vh; } }
+        /* مساحة البانر أسفل الهيدر (بدون تعديل على الهيدر نفسه) */
+        .hero{ height:36vh; display:block; }              /* كان 40vh */
+        @media (max-width:1024px){ .hero{ height:32vh; } }
+        @media (max-width:768px){  .hero{ height:28vh; } } /* رفع المحتوى للأعلى على الموبايل */
 
         :root{
           --stb-card-bg:#fff; --stb-card-b:#e5e7eb; --stb-text:#111827; --stb-muted:#6b7280;
           --stb-shadow:0 6px 24px rgba(0,0,0,.08); --stb-radius:16px;
         }
 
-        /* رفع المنتجات للأعلى (فقط CSS) */
+        /* رفع المنتجات للأعلى (CSS فقط) */
         .stb-wrap{
           max-width:1200px; margin:0 auto; padding:0 16px 56px;
           position:relative; z-index:1;
-          margin-top:-190px;              /* كان -160px */
+          margin-top:-210px;                         /* كان -190px */
         }
-        @media (min-width:1024px){ .stb-wrap{ margin-top:-230px; } }  /* كان -200px */
-        @media (max-width:640px){ .stb-wrap{ margin-top:-140px; } }   /* كان -120px */
+        @media (min-width:1024px){ .stb-wrap{ margin-top:-250px; } } /* كان -230px */
+        @media (max-width:768px){  .stb-wrap{ margin-top:-160px; padding:0 14px 44px; } } /* كان -110px */
+        @media (max-width:480px){  .stb-wrap{ margin-top:-150px; padding:0 12px 40px; } }
+        @media (max-width:375px){  .stb-wrap{ margin-top:-140px; } }
 
         .stb-panel{
-          background: rgba(255,255,255,0.86); backdrop-filter: blur(8px);
-          border: 1px solid #e5e7eb; border-radius: 18px; box-shadow: 0 8px 24px rgba(0,0,0,.10);
-          padding: 10px 200px; margin-bottom: 12px;
+          background:rgba(255,255,255,.86); backdrop-filter:blur(8px);
+          border:1px solid #e5e7eb; border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.10);
+          padding:14px 220px; margin-bottom:12px;
         }
         .stb-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
         .stb-title{ font-size:clamp(20px,2.6vw,28px); color:var(--stb-text); margin:0; font-weight:800; }
         .stb-sub{ font-size:13px; color:var(--stb-muted); margin:0; opacity:.9; }
+        @media (max-width:480px){
+          .stb-head{ gap:8px; }
+          .stb-title{ font-size:20px; }
+          .stb-sub{ font-size:12px; }
+        }
 
         .stb-grid{ display:grid; gap:12px; grid-template-columns:repeat(2,minmax(0,1fr)); }
-        @media(min-width:640px){ .stb-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
-        @media(min-width:1024px){ .stb-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+        @media (min-width:640px){ .stb-grid{ grid-template-columns:repeat(3,minmax(0,1fr)); } }
+        @media (min-width:1024px){ .stb-grid{ grid-template-columns:repeat(4,minmax(0,1fr)); } }
+        @media (max-width:375px){ .stb-grid{ grid-template-columns:1fr; gap:10px; } }
 
         .stb-card{
           background:var(--stb-card-bg); border:1px solid var(--stb-card-b);
@@ -62,14 +69,15 @@
           position:absolute; top:8px; inset-inline-start:8px; background:rgba(17,24,39,.7);
           color:#fff; font-size:12px; padding:4px 8px; border-radius:999px; backdrop-filter:blur(4px);
         }
+        @media (max-width:480px){ .stb-badge{ font-size:11px; padding:3px 7px; } }
 
-        /* شارة السعر + ضبط المحاذاة للأيقونة */
         .stb-price{
           position:absolute; top:8px; inset-inline-end:8px;
-          background:rgba(118, 251, 2, 0.92); color:#111; font-weight:800; font-size:12px;
+          background:rgba(212,175,55,.92); color:#111; font-weight:800; font-size:12px;
           padding:4px 8px; border-radius:999px; box-shadow:0 4px 12px rgba(0,0,0,.12);
           display:inline-flex; align-items:center; gap:4px;
         }
+        @media (max-width:480px){ .stb-price{ font-size:11px; padding:3px 7px; } }
 
         .stb-info{
           position:absolute; inset-inline:8px; bottom:8px; display:flex; gap:6px; flex-wrap:wrap;
@@ -80,46 +88,53 @@
           padding:4px 8px; border-radius:999px; font-size:12px; color:#111;
         }
         @media (max-width:640px){
-          .stb-info{ bottom:6px; } .stb-info .chip{ font-size:11px; padding:3px 6px; }
+          .stb-info{ bottom:6px; gap:4px; }
+          .stb-info .chip{ font-size:11px; padding:3px 6px; }
         }
+
         .stb-body{ padding:10px 12px 12px; }
         .stb-name{ font-weight:700; color:var(--stb-text); font-size:14.5px; margin:0 0 6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
         .stb-meta{ display:flex; gap:6px; flex-wrap:wrap; color:var(--stb-muted); font-size:12px; }
         .stb-chip{ background:#f9fafb; border:1px solid #eef2f7; padding:4px 8px; border-radius:999px; white-space:nowrap; max-width:100%; overflow:hidden; text-overflow:ellipsis; }
+        @media (max-width:480px){
+          .stb-name{ font-size:13.5px; }
+          .stb-meta{ font-size:11.5px; gap:4px; }
+          .stb-chip{ padding:3px 6px; }
+        }
 
-        /* === الشريط الإخباري: شكل حبّة زجاجية تحت الهيدر مباشرة، بدون تعديل هيكل === */
+        /* الشريط الإخباري: قريب جدًا من الهيدر ويثبت مع التمرير */
         .full-news-bar{
-          position: sticky;      /* يبقى تحت الهيدر ويثبت مع التمرير */
-          top: 8px;              /* مسافة بسيطة من أعلى الصفحة */
-          margin: 8px auto 14px; /* وسط الصفحة وتحت الهيدر */
-          max-width: 900px;
-          width: calc(100% - 32px);
-          background: rgba(17,17,17,0.35); 
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          padding: 10px 16px;
-          color: #fff; z-index: 6;
-          border-radius: 999px;            /* شكل pill */
-          box-shadow: 0 10px 24px rgba(0,0,0,.12), inset 0 0 0 1px rgba(255,255,255,.25);
-          border: none;                     /* إزالة الخطين السابقين */
+          position:sticky; top:4px;                    /* كان 8px */
+          margin:4px auto 10px;                        /* تقليل المسافات */
+          max-width:900px; width:calc(100% - 32px);
+          background:rgba(17,17,17,.35);
+          backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+          padding:9px 14px; color:#fff; z-index:6;
+          border-radius:999px; box-shadow:0 10px 24px rgba(0,0,0,.12), inset 0 0 0 1px rgba(255,255,255,.25);
+          border:none;
         }
-        .full-news-bar marquee{
-          font-weight:700; color:#fff; 
-          text-shadow:1px 1px 3px rgba(0,0,0,.5);
+        .full-news-bar marquee{ font-weight:700; color:#fff; text-shadow:1px 1px 3px rgba(0,0,0,.5); }
+        @media (max-width:640px){
+          .full-news-bar{ top:2px; margin:2px auto 8px; width:calc(100% - 20px); padding:8px 12px; }
+          .full-news-bar marquee{ font-size:13px; }
+        }
+        @media (max-width:375px){
+          .full-news-bar{ top:2px; margin:2px auto 6px; width:calc(100% - 14px); padding:7px 10px; }
+          .full-news-bar marquee{ font-size:12px; }
         }
 
-        /* إطار خاص خفيف للقسم + تصغير داخل الإطار فقط */
+        /* إطار خاص للقسم */
         .sale-frame{
-          position: relative; padding: 14px; border-radius: 20px;
-          background: rgba(238, 244, 155, 0.55); backdrop-filter: blur(8px);
-          border: 1px solid rgba(135, 83, 5, 0.6); box-shadow: 0 10px 28px rgba(0,0,0,.12);
-          margin-block: 8px 14px;
+          position:relative; padding:14px; border-radius:20px;
+          background:rgba(255,255,255,.55); backdrop-filter:blur(8px);
+          border:1px solid rgba(255,255,255,.6); box-shadow:0 10px 28px rgba(0,0,0,.12);
+          margin-block:8px 14px;
         }
         .sale-frame::after{ content:""; position:absolute; inset:0; border-radius:20px; pointer-events:none;
-          box-shadow: inset 0 0 0 2px rgba(212,175,55,.25);
+          box-shadow:inset 0 0 0 2px rgba(212,175,55,.25);
         }
         .sale-frame .stb-grid{ gap:10px; }
-        .sale-frame .stb-media{ aspect-ratio: 16 / 10; }
+        .sale-frame .stb-media{ aspect-ratio:16/10; }
         .sale-frame .stb-body{ padding:8px 10px 10px; }
         .sale-frame .stb-name{ font-size:13.5px; }
         .sale-frame .stb-meta{ font-size:11.5px; gap:4px; }
@@ -127,7 +142,7 @@
         .sale-frame .stb-price{ font-size:11px; padding:3px 7px; top:6px; inset-inline-end:6px; }
         .sale-frame .stb-info .chip{ font-size:11px; padding:3px 6px; }
 
-        /* أيقونة الريال السعودي (SVG inline) */
+        /* أيقونة الريال */
         .sr-icon{ width:14px; height:14px; display:inline-block; vertical-align:-2px; fill:currentColor; }
     </style>
 </head>
@@ -149,7 +164,7 @@
     <section class="stb-wrap" aria-labelledby="horses-title">
         <div class="stb-panel">
             <header class="stb-head">
-                <h3 id="horses-title" class="stb-title">أخبار و عروض مربط خير النواصي للخيل العربية الأصيلة</h3>
+                <h3 id="horses-title" class="stb-title">أخبار وعروض مربط خير النواصي للخيل العربية الأصيلة</h3>
             </header>
         </div>
 
