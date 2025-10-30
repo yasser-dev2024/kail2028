@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:900px;margin:20px auto;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);border:1px solid #eee;border-radius:16px;padding:16px;">
+  <h2>السلة</h2>
+  {% if cart %}
+    <ul style="list-style:none;padding:0;margin:0;">
+      {% for item in cart %}
+      <li style="display:flex;justify-content:space-between;gap:8px;padding:10px;border-bottom:1px solid #eee;">
+        <div>
+          <div><strong>{{ item.name }}</strong></div>
+          <div style="color:#666;font-size:13px;">النوع: {{ item.type }}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span>{{ item.price|floatformat:0 }} ر.س</span>
+          <form method="post" action="{% url 'core:remove_from_cart' %}" onsubmit="return removeItem(event, {{ forloop.counter0 }});">{% csrf_token %}
+            <input type="hidden" name="index" value="{{ forloop.counter0 }}">
+            <button style="background:#eee;border:0;border-radius:8px;padding:6px 10px;cursor:pointer;">إزالة</button>
+          </form>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px;">
+      <strong>الإجمالي: {{ total|floatformat:0 }} ر.س</strong>
+      <a href="{% url 'core:checkout' %}" style="padding:10px 16px;border-radius:10px;background:#d4af37;color:#111;font-weight:800;text-decoration:none;">الانتقال للدفع</a>
+    </div>
+  {% else %}
+    لا توجد عناصر في السلة.
+  {% endif %}
+</div>
+<script>
+function removeItem(e, idx){
+  e.preventDefault();
+  const form = e.target;
+  fetch(form.action, {method:"POST", body:new FormData(form), headers:{"X-Requested-With":"fetch"}})
+    .then(r=>r.json()).then(()=>location.reload());
+  return false;
+}
+</script>
+{% endblock %}

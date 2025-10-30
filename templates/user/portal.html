@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:900px;margin:20px auto;">
+  <h2>لوحة المستخدم</h2>
+  <p>عناصر السلة: <strong>{{ cart|length }}</strong> | الإجمالي: <strong>{{ total|floatformat:0 }}</strong> ر.س</p>
+  <a href="{% url 'core:cart' %}" style="padding:10px 16px;border-radius:10px;background:#d4af37;color:#111;font-weight:800;text-decoration:none;">فتح السلة</a>
+</div>
+{% endblock %}
