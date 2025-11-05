@@ -23,6 +23,11 @@ def register_view(request):
             messages.error(request, "اسم المستخدم موجود بالفعل.")
             return redirect('ops:register')
 
+        # ✅ تحقق من أن البريد الإلكتروني غير مستخدم مسبقًا
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "البريد الإلكتروني مستخدم مسبقًا.")
+            return redirect('ops:register')
+
         # إنشاء المستخدم
         user = User.objects.create_user(username=username, email=email, password=password)
         messages.success(request, "تم إنشاء الحساب بنجاح ✅ يمكنك الآن تسجيل الدخول.")
