@@ -28,40 +28,71 @@
         top: 15px;
         left: 20px;
         display: flex;
+        align-items: center;
         gap: 10px;
         z-index: 10;
     ">
-        <a href="{% url 'ops:login' %}" 
-           style="
-               text-decoration: none;
-               background: rgba(0, 0, 0, 0.6);
-               color: #fff;
-               padding: 8px 18px;
-               border-radius: 8px;
-               font-size: 15px;
-               transition: 0.3s;
-               white-space: nowrap;
-           "
-           onmouseover="this.style.background='gold'; this.style.color='black';"
-           onmouseout="this.style.background='rgba(0,0,0,0.6)'; this.style.color='white';">
-           تسجيل الدخول
-        </a>
 
-        <a href="{% url 'ops:register' %}" 
-           style="
-               text-decoration: none;
-               background: #d4af37;
-               color: black;
-               padding: 8px 18px;
-               border-radius: 8px;
-               font-size: 15px;
-               transition: 0.3s;
-               white-space: nowrap;
-           "
-           onmouseover="this.style.background='black'; this.style.color='gold';"
-           onmouseout="this.style.background='#d4af37'; this.style.color='black';">
-           إنشاء حساب
-        </a>
+        {% if user.is_authenticated %}
+            <span style="
+                color: white;
+                font-size: 15px;
+                background: rgba(0,0,0,0.5);
+                padding: 8px 15px;
+                border-radius: 8px;
+                backdrop-filter: blur(4px);
+            ">
+                👋 مرحبًا {{ user.username }}
+            </span>
+
+            <a href="{% url 'ops:logout' %}" 
+               style="
+                   text-decoration: none;
+                   background: #c0392b;
+                   color: white;
+                   padding: 8px 18px;
+                   border-radius: 8px;
+                   font-size: 15px;
+                   transition: 0.3s;
+                   white-space: nowrap;
+               "
+               onmouseover="this.style.background='darkred';"
+               onmouseout="this.style.background='#c0392b';">
+               تسجيل الخروج
+            </a>
+        {% else %}
+            <a href="{% url 'ops:login' %}" 
+               style="
+                   text-decoration: none;
+                   background: rgba(0, 0, 0, 0.6);
+                   color: #fff;
+                   padding: 8px 18px;
+                   border-radius: 8px;
+                   font-size: 15px;
+                   transition: 0.3s;
+                   white-space: nowrap;
+               "
+               onmouseover="this.style.background='gold'; this.style.color='black';"
+               onmouseout="this.style.background='rgba(0,0,0,0.6)'; this.style.color='white';">
+               تسجيل الدخول
+            </a>
+
+            <a href="{% url 'ops:register' %}" 
+               style="
+                   text-decoration: none;
+                   background: #d4af37;
+                   color: black;
+                   padding: 8px 18px;
+                   border-radius: 8px;
+                   font-size: 15px;
+                   transition: 0.3s;
+                   white-space: nowrap;
+               "
+               onmouseover="this.style.background='black'; this.style.color='gold';"
+               onmouseout="this.style.background='#d4af37'; this.style.color='black';">
+               إنشاء حساب
+            </a>
+        {% endif %}
     </div>
 
     <!-- النصوص فوق الصورة -->
@@ -114,10 +145,9 @@
         /* --- تنسيق الأزرار على الجوال --- */
         @media (max-width: 768px) {
             .desktop-only {
-                display: none !important; /* إخفاء الأزرار العلوية */
+                display: none !important;
             }
 
-            /* إضافة أزرار الجوال تحت الشريط الإخباري */
             .mobile-buttons {
                 display: flex !important;
                 justify-content: center;
@@ -126,9 +156,9 @@
                 width: 100%;
             }
 
-            .mobile-buttons a {
+            .mobile-buttons a, .mobile-buttons span {
                 flex: 1;
-                max-width: 140px;
+                max-width: 150px;
                 text-align: center;
                 text-decoration: none;
                 padding: 10px 15px;
@@ -157,12 +187,32 @@
                 background: black;
                 color: gold;
             }
+
+            .mobile-buttons a.logout {
+                background: #c0392b;
+                color: white;
+            }
+
+            .mobile-buttons a.logout:hover {
+                background: darkred;
+            }
+
+            .mobile-buttons span {
+                background: rgba(0,0,0,0.5);
+                color: white;
+                backdrop-filter: blur(3px);
+            }
         }
     </style>
 </header>
 
 <!-- شريط الأزرار للجوال فقط (أسفل الشريط الإخباري) -->
 <div class="mobile-buttons" style="display:none;">
-    <a href="{% url 'ops:login' %}" class="login">تسجيل الدخول</a>
-    <a href="{% url 'ops:register' %}" class="register">إنشاء حساب</a>
+    {% if user.is_authenticated %}
+        <span>👋 مرحبًا {{ user.username }}</span>
+        <a href="{% url 'ops:logout' %}" class="logout">تسجيل الخروج</a>
+    {% else %}
+        <a href="{% url 'ops:login' %}" class="login">تسجيل الدخول</a>
+        <a href="{% url 'ops:register' %}" class="register">إنشاء حساب</a>
+    {% endif %}
 </div>
