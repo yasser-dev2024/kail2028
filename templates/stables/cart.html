@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سلة مشترياتي | خير النواصي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      margin: 0;
+      background: url('/static/horse-1804425_960_720.jpg') center/cover no-repeat fixed;
+      backdrop-filter: blur(3px);
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: rgba(255,255,255,0.9);
+      border-radius: 20px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.15);
+      padding: 20px;
+    }
+    h2 {
+      text-align: center;
+      color: #00695c;
+      margin-bottom: 20px;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.1);
+      margin-bottom: 15px;
+      overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .cart-item:hover {
+      transform: translateY(-3px);
+    }
+    .cart-item img {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+    }
+    .cart-info {
+      flex: 1;
+      padding: 10px 15px;
+    }
+    .cart-info h3 {
+      margin: 0;
+      color: #111;
+      font-size: 18px;
+    }
+    .cart-info p {
+      margin: 6px 0;
+      color: #555;
+      font-size: 14px;
+    }
+    .remove-btn {
+      background: crimson;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 8px 14px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-inline-end: 12px;
+    }
+    .remove-btn:hover {
+      background: darkred;
+    }
+    .summary {
+      text-align: center;
+      margin-top: 25px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+    .checkout {
+      display: block;
+      margin: 30px auto 0;
+      background: #009688;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 12px;
+      padding: 12px 25px;
+      font-size: 16px;
+      transition: background 0.3s;
+      width: fit-content;
+    }
+    .checkout:hover {
+      background: #00796b;
+    }
+    .empty {
+      text-align: center;
+      color: #666;
+      margin-top: 60px;
+      font-size: 18px;
+    }
+    .back {
+      display: inline-block;
+      background: #555;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      margin-top: 20px;
+    }
+    .back:hover {
+      background: #333;
+    }
+
+    /* ✅ الزر الجديد أعلى الصفحة */
+    .top-back {
+      display: inline-block;
+      background: #00695c;
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: 0.3s;
+      margin-bottom: 20px;
+    }
+    .top-back:hover {
+      background: #004d40;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- ✅ زر العودة للرئيسية -->
+    <div style="text-align:right;">
+      <a href="{% url 'stables:home' %}" class="top-back">⬅️ العودة للرئيسية</a>
+    </div>
+
+    <h2>🛍️ سلة المشتريات</h2>
+
+    {% if horses %}
+      {% for horse in horses %}
+      <div class="cart-item">
+        {% if horse.photo %}
+          <img src="{{ horse.photo.url }}" alt="{{ horse.name }}">
+        {% else %}
+          <img src="{% static 'no-image.png' %}" alt="لا توجد صورة">
+        {% endif %}
+        <div class="cart-info">
+          <h3>{{ horse.name }}</h3>
+          {% if horse.price %}
+            <p>السعر: {{ horse.price }} ريال</p>
+          {% else %}
+            <p>السعر عند الطلب</p>
+          {% endif %}
+        </div>
+        <a href="{% url 'stables:remove_from_cart' horse.id %}" class="remove-btn">إزالة</a>
+      </div>
+      {% endfor %}
+
+      <div class="summary">
+        عدد المنتجات في السلة: {{ horses|length }}
+      </div>
+
+      <a href="#" class="checkout">💳 إتمام الشراء</a>
+
+    {% else %}
+      <div class="empty">
+        السلة فارغة 😅
+        <br>
+        <a href="{% url 'stables:home' %}" class="back">⬅️ العودة للرئيسية</a>
+      </div>
+    {% endif %}
+  </div>
+
+</body>
+</html>

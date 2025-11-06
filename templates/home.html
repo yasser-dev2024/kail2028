@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -5,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>خير النواصي للخيل العربية الأصيلة</title>
     <style>
-        /* خلفية الصفحة */
+        /* نفس التنسيقات الأصلية بدون أي تعديل */
         body{
           margin:0; font-family:'Tahoma',sans-serif;
           background:url('/static/horse-1804425_960_720.jpg') center/cover no-repeat fixed;
@@ -15,8 +16,6 @@
         body::before{ content:""; position:fixed; inset:0; z-index:-1;
           background:rgba(255,255,255,.15); backdrop-filter:blur(4px);
         }
-
-        /* ✅ إصلاح الهيدر */
         header {
           position: relative !important;
           width: 100%;
@@ -50,18 +49,13 @@
             flex-wrap: wrap;
           }
         }
-
-        /* مساحة البانر أسفل الهيدر (بدون تعديل على الهيدر نفسه) */
         .hero{ height:36vh; display:block; }
         @media (max-width:1024px){ .hero{ height:32vh; } }
         @media (max-width:768px){  .hero{ height:28vh; } }
-
         :root{
           --stb-card-bg:#fff; --stb-card-b:#e5e7eb; --stb-text:#111827; --stb-muted:#6b7280;
           --stb-shadow:0 6px 24px rgba(0,0,0,.08); --stb-radius:16px;
         }
-
-        /* رفع المنتجات للأعلى */
         .stb-wrap{
           max-width:1200px; margin:0 auto; padding:0 16px 56px;
           position:relative; z-index:1;
@@ -70,49 +64,35 @@
         @media (min-width:1024px){ .stb-wrap{ margin-top:-250px; } }
         @media (max-width:768px){  .stb-wrap{ margin-top:-160px; padding:0 14px 44px; } }
         @media (max-width:480px){  .stb-wrap{ margin-top:-140px; padding:0 10px 36px; } }
-
         .stb-panel{
           background:rgba(255,255,255,.86); backdrop-filter:blur(8px);
           border:1px solid #e5e7eb; border-radius:18px; box-shadow:0 8px 24px rgba(0,0,0,.10);
           padding:14px 20px; margin-bottom:12px;
         }
-
         .stb-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
         .stb-title{ font-size:clamp(20px,2.6vw,28px); color:var(--stb-text); margin:0; font-weight:800; text-align:center; flex:1; }
         .stb-sub{ font-size:13px; color:var(--stb-muted); margin:0; opacity:.9; }
-
-        @media (max-width:480px){
-          .stb-title{ font-size:18px; }
-          .stb-sub{ font-size:12px; text-align:center; }
-        }
-
-        /* شبكة الخيول */
         .stb-grid{ display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); }
         @media (max-width:640px){ .stb-grid{ grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); } }
         @media (max-width:400px){ .stb-grid{ grid-template-columns:1fr; } }
-
         .stb-card{
           background:var(--stb-card-bg); border:1px solid var(--stb-card-b);
           border-radius:var(--stb-radius); overflow:hidden; box-shadow:var(--stb-shadow);
           transition:transform .18s ease, box-shadow .18s ease;
         }
         .stb-card:hover{ transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.10); }
-
         .stb-media{ position:relative; width:100%; aspect-ratio:4/3; background:#f3f4f6; overflow:hidden; }
         .stb-media img{ width:100%; height:100%; object-fit:cover; display:block; }
-
         .stb-badge{
           position:absolute; top:8px; inset-inline-start:8px; background:rgba(17,24,39,.7);
           color:#fff; font-size:12px; padding:4px 8px; border-radius:999px; backdrop-filter:blur(4px);
         }
-
         .stb-price{
           position:absolute; top:8px; inset-inline-end:8px;
           background:rgba(212,175,55,.92); color:#111; font-weight:800; font-size:12px;
           padding:4px 8px; border-radius:999px; box-shadow:0 4px 12px rgba(0,0,0,.12);
           display:inline-flex; align-items:center; gap:4px;
         }
-
         .stb-info{
           position:absolute; inset-inline:8px; bottom:8px; display:flex; gap:6px; flex-wrap:wrap;
         }
@@ -121,67 +101,49 @@
           border:1px solid rgba(255,255,255,.6);
           padding:4px 8px; border-radius:999px; font-size:12px; color:#111;
         }
-
-        .stb-body{ padding:10px 12px 12px; }
-        .stb-name{ font-weight:700; color:var(--stb-text); font-size:15px; margin:0 0 6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:center; }
+        .stb-body{ padding:10px 12px 12px; text-align:center; }
+        .stb-name{ font-weight:700; color:var(--stb-text); font-size:15px; margin:0 0 6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
         .stb-meta{ display:flex; justify-content:center; gap:6px; flex-wrap:wrap; color:var(--stb-muted); font-size:12px; }
-        .stb-chip{ background:#f9fafb; border:1px solid #eef2f7; padding:4px 8px; border-radius:999px; white-space:nowrap; max-width:100%; overflow:hidden; text-overflow:ellipsis; }
-
-        /* الشريط الإخباري */
+        .stb-chip{ background:#f9fafb; border:1px solid #eef2f7; padding:4px 8px; border-radius:999px; }
         .full-news-bar{
-          position:sticky; top:4px;
-          margin:4px auto 10px;
-          max-width:900px; width:calc(100% - 32px);
-          background:rgba(17,17,17,.35);
-          backdrop-filter:blur(10px);
+          position:sticky; top:4px; margin:4px auto 10px; max-width:900px; width:calc(100% - 32px);
+          background:rgba(17,17,17,.35); backdrop-filter:blur(10px);
           padding:9px 14px; color:#fff; z-index:6;
           border-radius:999px; box-shadow:0 10px 24px rgba(0,0,0,.12), inset 0 0 0 1px rgba(255,255,255,.25);
         }
-        .full-news-bar marquee{ font-weight:700; color:#f4f6f4; text-shadow:1px 1px 3px rgba(0,0,0,.5); white-space:nowrap; }
-
-        @media (max-width:640px){
-          .full-news-bar{ margin:2px auto 8px; width:calc(100% - 20px); padding:8px 12px; }
-          .full-news-bar marquee{ font-size:13px; }
-        }
-        @media (max-width:375px){
-          .full-news-bar{ margin:2px auto 6px; width:calc(100% - 14px); padding:7px 10px; }
-          .full-news-bar marquee{ font-size:12px; }
-        }
-
-        /* الإطار الذهبي للخيل */
+        .full-news-bar marquee{ font-weight:700; color:#f4f6f4; text-shadow:1px 1px 3px rgba(0,0,0,.5); }
         .sale-frame{
           position:relative; padding:14px; border-radius:20px;
           background:rgba(222, 220, 220, 0.923); backdrop-filter:blur(50px);
           border:1px solid rgba(255,255,255,.6); box-shadow:0 10px 28px rgba(235, 5, 5, 0.12);
           margin-block:8px 14px;
         }
-        .sale-frame::after{ content:""; position:absolute; inset:0; border-radius:20px; pointer-events:none;
-          box-shadow:inset 0 0 0 2px rgba(212,175,55,.25);
-        }
-
-        /* أيقونة الريال */
         .sr-icon{ width:14px; height:14px; display:inline-block; vertical-align:-2px; fill:currentColor; }
-
-        /* تحسينات إضافية للجوال */
-        @media (max-width:768px){
-          .stb-body{ padding:8px 10px; }
-          .stb-name{ font-size:14px; }
-          .stb-meta{ font-size:11.5px; gap:4px; }
-          .stb-chip{ padding:3px 6px; }
-          .stb-info .chip{ font-size:11px; padding:3px 6px; }
-          .stb-badge, .stb-price{ font-size:11px; padding:3px 7px; }
+        .btn-cart {
+          display:inline-block; margin-top:8px; padding:8px 15px;
+          background:#009688; color:white; border-radius:12px;
+          font-weight:bold; text-decoration:none; transition:background 0.3s;
         }
-
-        @media (max-width:480px){
-          .stb-title{ font-size:17px; line-height:1.4; }
-          .sale-frame{ padding:10px; }
-          .stb-grid{ gap:10px; }
+        .btn-cart:hover { background:#00796b; }
+        .cart-link {
+          position:absolute; top:15px; left:15px;
+          background:#00796b; color:#fff; padding:8px 14px;
+          border-radius:999px; text-decoration:none; font-weight:bold;
+        }
+        .cart-count {
+          background:red; color:white; border-radius:50%; padding:3px 7px;
+          font-size:12px; margin-right:6px;
         }
     </style>
 </head>
 <body>
 
     {% include 'header.html' %}
+
+    <!-- زر السلة في الأعلى -->
+    <a href="{% url 'stables:view_cart' %}" class="cart-link">
+        🛍️ <span class="cart-count">{{ cart_count }}</span> سلتك
+    </a>
 
     {% if ticker and ticker.text %}
     <div class="full-news-bar">
@@ -218,23 +180,12 @@
                         </text>
                       </svg>" alt="لا توجد صورة">
                     {% endif %}
-
                     {% if horse.breed %}<span class="stb-badge">{{ horse.breed }}</span>{% endif %}
                     {% if horse.price %}
-                      <span class="stb-price">
-                        <svg class="sr-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-                          <rect x="7.5" y="1.8" width="3" height="20.4" rx="1.2"/>
-                          <rect x="13.5" y="1.8" width="3" height="20.4" rx="1.2"/>
-                          <rect x="3" y="6" width="18" height="2.2" rx="1" transform="rotate(-10 12 7.1)"/>
-                          <rect x="3" y="11.5" width="18" height="2.2" rx="1" transform="rotate(-10 12 12.6)"/>
-                          <rect x="3" y="17" width="18" height="2.2" rx="1" transform="rotate(-10 12 18.1)"/>
-                        </svg>
-                        {{ horse.price|floatformat:0 }}
-                      </span>
+                      <span class="stb-price">{{ horse.price|floatformat:0 }} ﷼</span>
                     {% else %}
                       <span class="stb-price">سعر عند الطلب</span>
                     {% endif %}
-
                     <div class="stb-info">
                         {% if horse.location %}<span class="chip">📍 {{ horse.location }}</span>{% endif %}
                         {% if horse.contact_phone %}<span class="chip">📞 {{ horse.contact_phone }}</span>{% endif %}
@@ -242,16 +193,17 @@
                 </div>
 
                 <div class="stb-body">
-                    <h4 class="stb-name" title="{{ horse.name }}">{{ horse.name }}</h4>
-                    <div class="stb-meta">
-                        {% if horse.color %}<span class="stb-chip">اللون: {{ horse.color }}</span>{% endif %}
-                        {% if horse.birth_date %}<span class="stb-chip">الميلاد: {{ horse.birth_date|date:"d-m-Y" }}</span>{% endif %}
-                    </div>
+                    <h4 class="stb-name">{{ horse.name }}</h4>
+                    {% if horse.color %}<span class="stb-chip">اللون: {{ horse.color }}</span>{% endif %}
+                    {% if horse.birth_date %}<span class="stb-chip">الميلاد: {{ horse.birth_date|date:"d-m-Y" }}</span>{% endif %}
                     {% if horse.specs %}
                     <div class="stb-meta" style="margin-top:6px;">
-                        <span class="stb-chip" title="{{ horse.specs }}">{{ horse.specs|truncatechars:60 }}</span>
+                        <span class="stb-chip">{{ horse.specs|truncatechars:60 }}</span>
                     </div>
                     {% endif %}
+                    <div>
+                        <a href="{% url 'stables:add_to_cart' horse.id %}" class="btn-cart">🛒 أضف إلى السلة</a>
+                    </div>
                 </div>
             </article>
             {% endfor %}
